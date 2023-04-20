@@ -67,3 +67,5 @@ router.get('/transaction/edit/:itemId',
     occuredAt: req.body.date}} );
       res.redirect('/transaction')
 });
+
+module.exports = router;
