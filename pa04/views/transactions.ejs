@@ -1,0 +1,41 @@
+
+<div>
+    <h1> Transactions List for <%= user.googlename %> </h1>
+    <p> Here is your list of transactions! </p>
+    
+    <ul class="list-group">
+      <% items.forEach(item => { %>
+           <li class="list-group-item">
+              <span class="ml-5">
+                <%= item.item %>
+              </span>
+              <span class="">
+                <a href="/transaction/remove/<%=item._id %>">
+                  <i class="bi bi-trash"></i>
+                </a>
+            </span>
+              <span class="">
+                <a href="/transaction/edit/<%=item._id %>">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                </span>   
+           </li>
+          <br>
+      <% }) %>
+      <p class="m-2">
+        <% if (show=='completed'){%>
+          <a href="?show=todo">(Show tasks to do)</a>
+        <% }else {%>
+          <a href="?show=completed">(Show completed tasks)</a>
+        <%}%>
+      </p>
+      <form method="post" action="transaction">
+          description: <input type="text" name="item">
+          category: <input type="text" name="item">
+          amount: <input type="number" name="item">
+          mm/dd/yyyy: <input type="text" name="item">
+          <br>
+          <input type="submit" value="store">
+      </form>
+
+  </div>

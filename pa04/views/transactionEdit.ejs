@@ -1,0 +1,11 @@
+<pre>
+    <%= JSON.stringify(item,null,5) %>
+</pre>
+<!--make it so that this pre-sets the original field-->
+<form method="post" action="transaction">
+    description: <input type="text" value="<%= item.item %>"name="item">
+    amount: <input type="number" value="<%= item.item %>"name="item">
+    category: <input type="text" value="<%= item.item %>"name="item">
+    mm/dd/yyyy: <input type="text" value="<%= item.item %>"name="item">
+    <input type="submit" value="store">
+</form>

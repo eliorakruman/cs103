@@ -1,0 +1,14 @@
+<pre>
+    <%= JSON.stringify(item,null,5) %>
+</pre>
+<form method="post" action="todo">
+    new item: <input type="text" value="<%= item.item %>"name="item">
+    priority: <select name="priority">
+        <%[1,2,3,4,5].map(p => { %>
+            <option <%= p==item.priority?'selected' :
+            '' %>> <%= p %> </option>
+        <% }) %>
+    </select>
+    <br>
+    <input type="submit" value="store">
+</form>
