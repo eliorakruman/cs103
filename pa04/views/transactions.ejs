@@ -1,13 +1,33 @@
 
 <div>
-    <h1> Transactions List for <%= user.googlename %> </h1>
+    <h1> Transactions for <%= user.googlename %> </h1>
     <p> Here is your list of transactions! </p>
-    
+    <ul class="choose-sorting">
+      <li class="sorting-option">
+        <a>Group by Category</a>
+        <!--add the link later-->
+      </li>
+      <li class="sorting-option">
+        <a href="/transaction?sort=category">Sort by Category</a>
+      </li>
+      <li class="sorting-option">
+        <a href="/transaction?sort=amount">Sort by Amount</a>
+      </li>
+      <li class="sorting-option">
+        <a href="/transaction?sort=item">Sort by Description</a>
+      </li>
+      <li class="sorting-option">
+        <a href="/transaction?sort=occurredAt">Sort by Date</a>
+      </li>
+    </ul>
     <ul class="list-group">
       <% items.forEach(item => { %>
            <li class="list-group-item">
               <span class="ml-5">
                 <%= item.item %>
+                <%= item.amount %>
+                <%= item.category %>
+                <%= item.occurredAt %>
               </span>
               <span class="">
                 <a href="/transaction/remove/<%=item._id %>">
@@ -22,18 +42,15 @@
            </li>
           <br>
       <% }) %>
-      <p class="m-2">
-        <% if (show=='completed'){%>
-          <a href="?show=todo">(Show tasks to do)</a>
-        <% }else {%>
-          <a href="?show=completed">(Show completed tasks)</a>
-        <%}%>
-      </p>
+      <h1> Add a New Transaction </h1>
       <form method="post" action="transaction">
           description: <input type="text" name="item">
-          category: <input type="text" name="item">
-          amount: <input type="number" name="item">
-          mm/dd/yyyy: <input type="text" name="item">
+          <br>
+          category: <input type="text" name="category">
+          <br>
+          amount: <input type="text" name="amount">
+          <br>
+          mm/dd/yyyy: <input type="text" name="occurredAt">
           <br>
           <input type="submit" value="store">
       </form>

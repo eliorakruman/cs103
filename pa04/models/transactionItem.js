@@ -7,7 +7,7 @@ var transactionItemSchema = Schema( {
   item: String,
   amount: Number,
   category: String,
-  occurredAt: Date,
+  occurredAt: String,
   userId: ObjectId
 } );
 
