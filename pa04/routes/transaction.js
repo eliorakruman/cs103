@@ -25,9 +25,13 @@ router.get('/transaction/',
   isLoggedIn,
   async (req, res, next) => {
       res.locals.show = req.query.show
-      res.locals.items = 
+      
+      const sortBy = req.query.sortBy || {itemId:1}; // Default to sorting by 'itemID'
+      const sortOrder = req.query.sortOrder || 'asc'; // Default to sorting in ascending order
+  
+  res.locals.items = 
         await transactionItem.find(
-           {userId:req.user._id}).sort({occurredAt:1})
+           {userId:req.user._id}).sort({ [sortBy]: sortOrder })
       res.render('transactions');
 });
 
@@ -72,6 +76,22 @@ router.post('/transaction/updateTransactionItem',
         {_id:itemId},
         {$set: {item,amount,category,occurredAt}} );
       res.redirect('/transaction')
+});
+
+router.get('/transaction/groupByCategory',
+  isLoggedIn,
+  async (req, res, next) => {
+      let results =
+            await transactionItem.aggregate(
+                [ 
+                  {$group:{
+                    _id:'$category',
+                    total:{$count:{}}
+                    }},
+                  {$sort:{total:-1}},              
+                ])
+                res.json(results)
+        //res.render('groupByCategory', {results})
 });
 
 module.exports = router;

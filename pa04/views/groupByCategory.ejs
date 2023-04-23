@@ -1,0 +1,17 @@
+
+<div>
+    <h1> Transactions for <%= user.googlename %> </h1>
+    <p> Here is your list of transactions! </p>
+    <a href="/transaction/">transaction table</a> 
+    <ul class="list-group">
+      <% results.forEach(result => { %>
+           <li class="list-group-item">
+              <span class="ml-5">
+                <%= result.category %>
+                <%= result.amount %>
+                <!--UPDATE so that its total-->
+              </span>
+           </li>
+          <br>
+      <% }) %>
+  </div>

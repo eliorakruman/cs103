@@ -4,20 +4,20 @@
     <p> Here is your list of transactions! </p>
     <ul class="choose-sorting">
       <li class="sorting-option">
-        <a>Group by Category</a>
-        <!--add the link later-->
+        <a href="/transaction/groupByCategory">Group by Category</a>
       </li>
       <li class="sorting-option">
-        <a href="/transaction?sort=category">Sort by Category</a>
+        <a href="/transaction?sortBy=category&sortOrder=<%= sortOrder = 'asc'%>">Sort by Category</a>
       </li>
       <li class="sorting-option">
-        <a href="/transaction?sort=amount">Sort by Amount</a>
+        <a href="/transaction?sortBy=amount&sortOrder=<%= sortOrder = 'asc'%>">Sort by Amount</a>
+        <!-- <a href="/transaction/sortByAmount">Sort by Amount Descending</a> -->
       </li>
       <li class="sorting-option">
-        <a href="/transaction?sort=item">Sort by Description</a>
+        <a href="/transaction?sortBy=item&sortOrder=<%= sortOrder = 'asc'%>">Sort by Description</a>
       </li>
       <li class="sorting-option">
-        <a href="/transaction?sort=occurredAt">Sort by Date</a>
+        <a href="/transaction?sortBy=occurredAt&sortOrder=<%= sortOrder = 'asc'%>">Sort by Date</a>
       </li>
     </ul>
     <ul class="list-group">
