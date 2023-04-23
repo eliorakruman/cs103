@@ -81,22 +81,22 @@ router.post('/transaction/updateTransactionItem',
 router.get('/transaction/groupByCategory',
   isLoggedIn,
   async (req, res, next) => {
+    console.log("inside /transaction/groupByCategory")
+    const userId = req.user._id
       let results =
             await transactionItem.aggregate(
                 [ 
                   {$match:{
-                    _userID: req.user._id}},
+                    userId: userId}},
                   {$group:{
                     _id:'$category',
-                    total:{$count:{}}
+                    total:{$sum:1}
                     }},
                   {$sort:{total:-1}},              
                 ])
-        //        res.json(results)
+                console.log("hi")
+        console.log(results)
         res.render('groupByCategory', {results})
-        //need to fix: getting weird results that i didnt input
-        //also how to make it only the transactions from this user
-              //possibly fixed those, but now getting "bsonversion error"
       });
 
 module.exports = router;
