@@ -8,7 +8,7 @@ var transactionItemSchema = Schema( {
   amount: Number,
   category: String,
   occurredAt: String,
-  userId: ObjectId
+  userId: {type:ObjectId, ref:'user' }
 } );
 
 module.exports = mongoose.model( 'transactionItem', transactionItemSchema );

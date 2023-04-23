@@ -4,7 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const ToDoItem = require('../models/ToDoItem')
-
+const User = require('../models/User')
 
 /*
 this is a very simple server which maintains a key/value
@@ -76,6 +76,25 @@ router.get('/todo/uncomplete/:itemId',
       res.redirect('/toDo')
 });
 
+router.get('/todo/edit/:itemId',
+  isLoggedIn,
+  async (req, res, next) => {
+      console.log("inside /todo/edit/:itemId")
+      const item = 
+       await ToDoItem.findById(req.params.itemId);
+      res.locals.item = item
+      res.render('edit')
+});
 
+router.post('/todo/updateTodoItem',
+  isLoggedIn,
+  async (req, res, next) => {
+      const {itemId,item,priority} = req.body;
+      console.log("inside /todo/complete/:itemId");
+      await ToDoItem.findOneAndUpdate(
+        {_id:itemId},
+        {$set: {item,priority}} );
+      res.redirect('/toDo')
+});
 
 module.exports = router;

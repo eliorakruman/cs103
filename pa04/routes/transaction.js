@@ -4,7 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const transactionItem = require('../models/transactionItem')
-
+const User = require('../models/User')
 
 /*
 this is a very simple server which maintains a key/value
@@ -84,14 +84,19 @@ router.get('/transaction/groupByCategory',
       let results =
             await transactionItem.aggregate(
                 [ 
+                  {$match:{
+                    _userID: req.user._id}},
                   {$group:{
                     _id:'$category',
                     total:{$count:{}}
                     }},
                   {$sort:{total:-1}},              
                 ])
-                res.json(results)
-        //res.render('groupByCategory', {results})
-});
+        //        res.json(results)
+        res.render('groupByCategory', {results})
+        //need to fix: getting weird results that i didnt input
+        //also how to make it only the transactions from this user
+              //possibly fixed those, but now getting "bsonversion error"
+      });
 
 module.exports = router;
