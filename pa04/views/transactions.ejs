@@ -27,7 +27,7 @@
                 <%= item.item %>
                 <%= item.amount %>
                 <%= item.category %>
-                <%= item.occurredAt %>
+                <%= item.occurredAt.toDateString() %>
               </span>
               <span class="">
                 <a href="/transaction/remove/<%=item._id %>">

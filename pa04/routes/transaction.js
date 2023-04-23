@@ -94,8 +94,6 @@ router.get('/transaction/groupByCategory',
                     }},
                   {$sort:{total:-1}},              
                 ])
-                console.log("hi")
-        console.log(results)
         res.render('groupByCategory', {results})
       });
 
