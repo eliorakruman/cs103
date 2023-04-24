@@ -7,3 +7,38 @@ body {
     color: #00B7FF;
   }
   
+  table{
+    border: 1px solid #D3D3D3;
+    width:65%;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  td {
+    border: 1px solid #D3D3D3;
+    padding: 5px;
+    text-align: left;
+  }
+
+  th{
+    border: 1px solid #D3D3D3;
+    padding: 5px;
+    text-align: left;
+    font-size: bold;
+  }
+
+  .sort{
+    text-align:center;
+    width:60%;
+  }
+  
+  new{
+    color:#D3D3D3;
+  }
+
+
+.choose-sorting {
+  margin-bottom: -50px;
+}

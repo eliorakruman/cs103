@@ -1,16 +1,26 @@
 
 <div>
-    <h1> Transactions for <%= user.googlename %> </h1>
+    <h1> Transactions for <%=username%>@me.com </h1>
     <p> Here is your list of transactions! </p>
-    <a href="/transaction/">transaction table</a> 
+    <ul>
+    <li><a href="/transaction/">transaction table</a> </li>
+  </ul>
     <ul class="list-group">
+      <table>
+        <tr>
+        <th>category</th>
+        <th>amount</th>
+      </tr>
       <% results.forEach(result => { %>
-           <li class="list-group-item">
-              <span class="ml-5">
+        <tr>
+                <td>
                 <%= result._id %>
+              </td>
+              <td>
                 <%= result.total %>
-              </span>
-           </li>
+              </td>
           <br>
+        </tr>
       <% }) %>
+    </table>
   </div>

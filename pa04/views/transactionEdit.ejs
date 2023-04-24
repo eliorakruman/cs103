@@ -1,9 +1,10 @@
-<!--make it so that this pre-sets the original field-->
+<h3>Editing Transaction</h3>
+<br>
 <form method="post" action="/transaction/updateTransactionItem">
     <input type="hidden" name="itemId" value="<%= item._id %>">
     description: <input type="text" value="<%= id.item %>"name="item">
     amount: <input type="text" value="<%= id.amount %>"name="amount">
     category: <input type="text" value="<%= id.category %>"name="category">
-    mm/dd/yyyy: <input type="text" value="<%= id.occurredAt %>"name="occurredAt">
+    mm/dd/yyyy: <input type="text" value="<%= id.occurredAt.toLocaleDateString() %>"name="occurredAt">
     <input type="submit" value="store">
 </form>

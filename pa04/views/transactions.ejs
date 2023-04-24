@@ -1,56 +1,76 @@
 
 <div>
-    <h1> Transactions for <%= user.googlename %> </h1>
+    <h1> Transactions for <%=username%>@me.com </h1>
     <p> Here is your list of transactions! </p>
     <ul class="choose-sorting">
-      <li class="sorting-option">
-        <a href="/transaction/groupByCategory">Group by Category</a>
-      </li>
-      <li class="sorting-option">
-        <a href="/transaction?sortBy=category&sortOrder=<%= sortOrder = 'asc'%>">Sort by Category</a>
-      </li>
-      <li class="sorting-option">
-        <a href="/transaction?sortBy=amount&sortOrder=<%= sortOrder = 'asc'%>">Sort by Amount</a>
-        <!-- <a href="/transaction/sortByAmount">Sort by Amount Descending</a> -->
-      </li>
-      <li class="sorting-option">
-        <a href="/transaction?sortBy=item&sortOrder=<%= sortOrder = 'asc'%>">Sort by Description</a>
-      </li>
-      <li class="sorting-option">
-        <a href="/transaction?sortBy=occurredAt&sortOrder=<%= sortOrder = 'asc'%>">Sort by Date</a>
-      </li>
+    <table class="sort">
+      <tr>
+        <td>
+        <a class="btn btn-primary" href="/transaction/groupByCategory" role="button">group by category</a>
+        </td>
+        <td>
+        <a class="btn btn-primary" href="/transaction?sortBy=category&sortOrder=<%= sortOrder = 'asc'%>" role="button">sort by category</a>
+        </td>
+        <td>
+        <a class="btn btn-primary" href="/transaction?sortBy=amount&sortOrder=<%= sortOrder = 'asc'%>" role="button">sort by amount</a>
+        </td>
+        <td>
+        <a class="btn btn-primary" href="/transaction?sortBy=item&sortOrder=<%= sortOrder = 'asc'%>" role="button">sort by description</a>
+        </td>
+        <td>
+        <a class="btn btn-primary" href="/transaction?sortBy=occurredAt&sortOrder=<%= sortOrder = 'asc'%>" role="button">sort by date</a>
+        </td>
+      </tr>
+    </table>
     </ul>
-    <ul class="list-group">
+      <table>
+        <tr>
+        <th>description</th>
+        <th>amount</th>
+        <th>category</th>
+        <th>date</th>
+        <th>delete</th>
+        <th>edit</th>
+      </tr>
       <% items.forEach(item => { %>
-           <li class="list-group-item">
-              <span class="ml-5">
+        <tr>
+                <td>
                 <%= item.item %>
+              </td>
+              <td>
                 <%= item.amount %>
+              </td>
+              <td>
                 <%= item.category %>
+              </td>
+                <td>
                 <%= item.occurredAt.toDateString() %>
-              </span>
-              <span class="">
+              </td>
+            
+            <td>
                 <a href="/transaction/remove/<%=item._id %>">
                   <i class="bi bi-trash"></i>
                 </a>
-            </span>
-              <span class="">
+          </td>
+          <td>
                 <a href="/transaction/edit/<%=item._id %>">
                   <i class="bi bi-pencil"></i>
                 </a>
-                </span>   
-           </li>
+              </td>
+          </tr>
           <br>
       <% }) %>
+    </table>
+    <br>
       <h1> Add a New Transaction </h1>
-      <form method="post" action="transaction">
-          description: <input type="text" name="item">
+      <form method="post" action="transaction" class="new">
+          <input type="text" name="item" value="description">
           <br>
-          category: <input type="text" name="category">
+          <input type="text" name="category" value="category">
           <br>
-          amount: <input type="text" name="amount">
+          <input type="text" name="amount" value="amount">
           <br>
-          mm/dd/yyyy: <input type="text" name="occurredAt">
+          <input type="text" name="occurredAt" value="mm/dd/yyyy">
           <br>
           <input type="submit" value="store">
       </form>
