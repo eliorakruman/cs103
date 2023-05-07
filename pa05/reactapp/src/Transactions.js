@@ -32,12 +32,17 @@ export default function App() {
     const item = document.getElementById("item").value;
     const amount = document.getElementById("amount").value;
   const category = document.getElementById("category").value;
+  let date = new Date();
+  let month = (date.getMonth() + 1).toString().padStart(2, '0');
+  let day = date.getDate().toString().padStart(2, '0');
+  let year = date.getFullYear();
+  let formattedDate = `${month}/${day}/${year}`;  //use formatted date so that 0 appears in month
     let newItem = {
       key: numKeys,
       desc: item,
       amount: amount,
       category: category,
-      date: new Date().toLocaleDateString(),
+      date: formattedDate,
     };
     document.getElementById("item").value = ""
     document.getElementById("amount").value = ""
@@ -53,25 +58,16 @@ export default function App() {
     setNumKeys(numKeys-1)
   }
 
-  
-
+  //clear all items
+  function quit(){
+    setItems([])
+  }
 
 
   useEffect(() => {
     // storing items if items changes value
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
-
-  // // demo of how to get data from an Express server
-  // useEffect(() => {
-  //   const getMsg = async () => {
-  //     const response = await fetch('http://localhost:3000/test');
-  //     const result = await response.json();
-  //     setMsg(result);
-  //     console.log('msg =',result);
-  //   }
-  //   getMsg()
-  // },[msg])
 
   // this is used to allow text data to be submitted
   // when the user hits the 'Enter' key
@@ -87,7 +83,7 @@ export default function App() {
     const newDesc = prompt("Enter new description",item.desc);
     const newAmount = prompt("Enter new amount",item.amount);
     const newCategory = prompt("Enter new category",item.category);
-    const newDate = prompt("Enter new date",item.date);
+    const newDate = prompt("Enter new date (MM/DD/YYYY",item.date);
     item.desc = newDesc;
     item.amount = newAmount;
     item.category = newCategory;
@@ -99,13 +95,17 @@ function sortBy(key){
     const sortedItems = [...items];
     switch(key){
         case "date":
-            sortedItems.sort((a,b)=>(a.date>b.date)?1:-1);
+            sortedItems.sort((a, b) => {
+              const dateA = new Date(a.date); //convert into date object for comparison
+              const dateB = new Date(b.date);
+              return dateB - dateA;
+            });
             break;
         case "month":
             sortedItems.sort((a,b)=>(a.date.split('/')[0]>b.date.split('/')[0])?-1:1);
             break;
         case "year":
-            sortedItems.sort((a,b)=>(a.date.split('/')[2]>b.date.split('/')[2])?1:-1);
+            sortedItems.sort((a,b)=>(a.date.split('/')[2]>b.date.split('/')[2])?-1:1);
             break;
         case "category":
             sortedItems.sort((a,b)=>(a.category>b.category)?1:-1);
@@ -162,6 +162,9 @@ function sortBy(key){
 <button onClick={() => sortBy("year")}>Sort by Year</button>
 <button onClick={() => sortBy("category")}>Sort by Category</button>
 <button onClick={() => sortBy("amount")}>Sort by Amount</button>
+<br/>
+<br/>
+<button onClick={() => quit()}>Quit</button>
     </div>
 
   );
